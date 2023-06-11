@@ -1,10 +1,15 @@
 import pygame
 
-# Inialize the pygame
+# Initialize the pygame
 pygame.init()
 
 # Create the screen
 screen = pygame.display.set_mode((800, 600))
+
+# Title and Icon
+pygame.display.set_caption('TicTacToe')
+icon = pygame.image.load('assets/icon/icon.png')
+pygame.display.set_icon(icon)
 
 # Game Loop
 running = True
