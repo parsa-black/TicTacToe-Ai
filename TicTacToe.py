@@ -22,6 +22,17 @@ largeFontEn = pygame.font.Font('assets/font/RobotoMono-VariableFont_wght.ttf', 4
 moveFontEn = pygame.font.Font('assets/font/RobotoMono-VariableFont_wght.ttf', 60)
 
 
+class Button:
+    def __init__(self, text):
+        self.text = midFontEn.render(text, True, white)
+        self.size = self.text.get_size()
+        self.surface = pygame.Surface(self.size)
+        self.surface.blit(self.text, (0, 0))
+
+
+button1 = Button('Farsi')
+button2 = Button('English')
+
 # Create the screen
 screen = pygame.display.set_mode((400, 600))
 
@@ -35,7 +46,6 @@ user = None
 board = Engine.init_state()
 turn = False
 
-
 # Game Loop
 while True:
     for event in pygame.event.get():
@@ -44,6 +54,8 @@ while True:
 
     # RGB - Red, Green, Blue
     screen.fill(white)
+    screen.blit(button1.surface, (170, 240))
+    screen.blit(button2.surface, (150, 280))
     pygame.display.update()
 
     if user is None:
