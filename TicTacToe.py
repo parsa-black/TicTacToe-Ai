@@ -10,13 +10,15 @@ width = 600
 height = 400
 
 # Create the screen
-screen = pygame.display.set_mode((width, height))
+screen = pygame.display.set_mode([width, height])
 
 # Color
 black = (0, 0, 0)
 red = (255, 0, 0)
 green = (0, 255, 0)
 white = (255, 255, 255)
+grey = (128, 128, 128)
+cyan = (0, 225, 225)
 
 
 # Font En-us
@@ -26,12 +28,21 @@ moveFont = pygame.font.Font('assets/font/RobotoMono-VariableFont_wght.ttf', 60)
 
 
 class Button:
-    def __init__(self, text):
-        self.text = midFont.render(text, True, white)
-        self.size = self.text.get_size()
-        self.surface = pygame.Surface(self.size)
-        self.surface.blit(self.text, (0, 0))
+    def __init__(self, text, pos):
+        self.btn = pygame.Rect(pos)
+        self.text = midFont.render(text, True, cyan)
+        self.rect = self.text.get_rect()
+        self.rect.center = self.btn.center
+        pygame.draw.rect(screen, grey, self.btn)
+        self.draw()
 
+    def draw(self):
+        screen.blit(self.text, self.btn)
+
+
+# Button
+DarkBtn = Button('Dark Mode', [(width / 8), (height / 2), width / 4, 50])
+LightBtn = Button('Light Mode', [5 * (width / 8), (height / 2), width / 4, 50])
 
 # Title and Icon
 pygame.display.set_caption('Tic-Tac-Toe')
@@ -39,7 +50,7 @@ icon = pygame.image.load('assets/icon/icon.png')
 pygame.display.set_icon(icon)
 
 # Game Starter
-lang = None
+bcg = None
 user = None
 board = Engine.init_state()
 turn = False
@@ -51,15 +62,13 @@ while True:
             sys.exit()
 
     # RGB - Red, Green, Blue
-    screen.fill(white)
+    screen.fill(grey)
 
-    if lang is None:
-        FarsiButton = pygame.Rect((width / 8), (height / 2), width / 4, 50)
-        Farsi = midFont.render('english', True, white)
-        FarsiRect = Farsi.get_rect()
-        FarsiRect.center = FarsiButton.center
-        pygame.draw.rect(screen, black, FarsiButton)
-        screen.blit(Farsi, FarsiRect)
+    if bcg is None:
+        DarkBtn = Button('Dark Mode', [(width / 8), (height / 2), width / 4, 50])
+        LightBtn = Button('Light Mode', [5 * (width / 8), (height / 2), width / 4, 50])
+        # screen.blit(DarkBtn.text, DarkBtn.btn)
+        # screen.blit(LightBtn.text, LightBtn.btn)
 
     pygame.display.update()
     # if user is None:
