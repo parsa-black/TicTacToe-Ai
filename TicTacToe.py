@@ -80,4 +80,5 @@ while True:
         elif LightBtn.check_click():
             screen.fill(white)
 
+
     pygame.display.update()
