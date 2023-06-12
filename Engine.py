@@ -1,7 +1,7 @@
 from copy import deepcopy
 
 X = "X"
-O = "0"
+O = "O"
 EMPTY = None
 
 

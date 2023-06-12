@@ -1,5 +1,6 @@
 import pygame
 import sys
+import time
 import Engine
 
 # Initialize the pygame
@@ -26,6 +27,11 @@ screen.fill(gray)
 midFont = pygame.font.Font('assets/font/RobotoMono-VariableFont_wght.ttf', 28)
 largeFont = pygame.font.Font('assets/font/RobotoMono-VariableFont_wght.ttf', 40)
 moveFont = pygame.font.Font('assets/font/RobotoMono-VariableFont_wght.ttf', 60)
+
+# Button pos
+pos1 = [(width / 8), (height / 2), width / 4, 50]
+pos2 = [5 * (width / 8), (height / 2), width / 4, 50]
+pos3 = [5 * (width / 8), (height / 2), width / 3.5, 50]
 
 
 # Button Class
@@ -60,11 +66,13 @@ pygame.display.set_caption('Tic-Tac-Toe')
 icon = pygame.image.load('assets/icon/icon.png')
 pygame.display.set_icon(icon)
 
-# Game Starter
+
+# Game Starter Parameter
 bcg = None
-user = None
+User = None
 board = Engine.init_state()
 turn = False
+
 
 # Game Loop
 while True:
@@ -72,13 +80,42 @@ while True:
         if event.type == pygame.QUIT:
             sys.exit()
 
+    # Game Env
+    def draw_game():
+        
+        if User is None:
+
+            # Title
+            title = largeFont.render("Tic-Tac-Toe Game", True, cyan)
+            titleRect = title.get_rect()
+            titleRect.center = ((width / 2), 50)
+            screen.blit(title, titleRect)
+
+            # Game Btn
+            PlayXBtn = Button('Play as X', pos1)
+            PlayOBtn = Button('Play as O', pos2)
+            if PlayXBtn:
+                time.sleep(0.2)
+                User = Engine.X
+            elif PlayOBtn:
+                time.sleep(0.2)
+                User = Engine.O
+        else:
+            pass
+
+
     if bcg is None:
-        DarkBtn = Button('Dark Mode', [(width / 8), (height / 2), width / 4, 50])
-        LightBtn = Button('Light Mode', [5 * (width / 8), (height / 2), width / 3.5, 50])
+        DarkBtn = Button('Dark Mode', pos1)
+        LightBtn = Button('Light Mode', pos3)
         if DarkBtn.check_click():
+            time.sleep(0.1)
             screen.fill(black)
+            time.sleep(0.3)
+            draw_game()
         elif LightBtn.check_click():
+            time.sleep(0.1)
             screen.fill(white)
+            time.sleep(0.3)
+            draw_game()
 
-
-    pygame.display.update()
+    pygame.display.flip()
