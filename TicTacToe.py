@@ -18,8 +18,13 @@ green = (0, 255, 0)
 white = (255, 255, 255)
 cyan = (0, 225, 225)
 dark_Blue = (0, 0, 153)
+dark_pink = (255, 0, 127)
+color_finish = red
 color_Screen = (128, 128, 128)
-color_Game = (0, 0, 0)
+color_Game = black
+color_board_line = green
+color_Move = green
+color_Computer = dark_pink
 
 # Create the screen
 screen = pygame.display.set_mode([width, height])
@@ -34,27 +39,32 @@ midFont = pygame.font.Font('assets/font/RobotoMono-VariableFont_wght.ttf', 28)
 largeFont = pygame.font.Font('assets/font/RobotoMono-VariableFont_wght.ttf', 40)
 moveFont = pygame.font.Font('assets/font/RobotoMono-VariableFont_wght.ttf', 60)
 
-# Button pos
-posBtn1 = [25, 350, width / 4, 50]
-posBtn2 = [400, 350, width / 3.5, 50]
+# Position
+posBtn1 = [25, height - 60, width / 4, 50]
+posBtn2 = [400, height - 60, width / 3.5, 50]
 posBtn3 = [(width / 8), (height / 2), width / 3.7, 50]
 posBtn4 = [5 * (width / 8), (height / 2), width / 3.7, 50]
-posBtn5 = [width / 3, height - 65, width / 3, 50]
+posBtn5 = [(width / 2.8), (height - 65), width / 3, 50]
 # -------------------------------------------------------
 posTit1 = [(width / 2), 50]
+posTit2 = [(width / 2), 30]
+posTit3 = [width / 2 - (1.5 * 80), height / 2 - (1.5 * 80)]
+
+# Draw Board
+title_size = 80
+title_origin = posTit3
 
 
 # Title Class
 class Title:
-    def __init__(self, text, pos):
-        self.text = largeFont.render(text, True, color_Game)
+    def __init__(self, text, pos, color):
+        self.text = largeFont.render(text, True, color)
         self.title = self.text.get_rect()
         self.title.center = pos
         screen.blit(self.text, self.title)
 
 
 # Button Class
-
 class Button:
     def __init__(self, text, pos):
         self.pos = pos
@@ -121,17 +131,21 @@ while True:
         DarkBtn = Button('Dark Mode', posBtn1)
         LightBtn = Button('Light Mode', posBtn2)
         color_Game = cyan
-        title_welcome = Title('Welcome', posTit1)
+        title_welcome = Title('Welcome', posTit1, color_Game)
 
         if DarkBtn.check_click() == 1:
             color_Screen = black
             color_Game = green
+            # color_board_line = green
+            # color_Move = green
             time.sleep(0.2)
             bcg = True
 
         elif LightBtn.check_click() == 1:
             color_Screen = white
             color_Game = dark_Blue
+            color_board_line = dark_Blue
+            color_Move = dark_Blue
             time.sleep(0.2)
             bcg = True
 
@@ -140,7 +154,7 @@ while True:
         if User is None:
 
             # Draw title
-            title_start = Title("Play Tic-Tac-Toe", posTit1)
+            title = Title("Play Tic-Tac-Toe", posTit1, color_Game)
 
             # Draw buttons
             PlayXBtn = ButtonTit("Play as X", posBtn3)
@@ -160,27 +174,24 @@ while True:
         else:
 
             # Draw game board
-            tile_size = 80
-            tile_origin = (width / 2 - (1.5 * tile_size),
-                           height / 2 - (1.5 * tile_size))
-            tiles = []
+            titles = []
             for i in range(3):
                 row = []
                 for j in range(3):
                     rect = pygame.Rect(
-                        tile_origin[0] + j * tile_size,
-                        tile_origin[1] + i * tile_size,
-                        tile_size, tile_size
+                        title_origin[0] + j * title_size,
+                        title_origin[1] + i * title_size,
+                        title_size, title_size
                     )
-                    pygame.draw.rect(screen, white, rect, 3)
+                    pygame.draw.rect(screen, color_board_line, rect, 3)
 
                     if board[i][j] != Engine.EMPTY:
-                        move = moveFont.render(board[i][j], True, white)
+                        move = moveFont.render(board[i][j], True, color_Move)
                         moveRect = move.get_rect()
                         moveRect.center = rect.center
                         screen.blit(move, moveRect)
                     row.append(rect)
-                tiles.append(row)
+                titles.append(row)
 
             game_over = Engine.terminal(board)
             player = Engine.player(board)
@@ -189,17 +200,13 @@ while True:
             if game_over:
                 winner = Engine.winner(board)
                 if winner is None:
-                    title = f"Game Over: Tie."
+                    title_finish = Title(f"Game End: Tie.", posTit2, color_finish)
                 else:
-                    title = f"Game Over: {winner} wins."
+                    title_finish = Title(f"Game Over: {winner} wins.", posTit2, color_finish)
             elif User == player:
-                title = f"Play as {User}"
+                title = Title(f"Play as {User}", posTit2, color_Game)
             else:
-                title = f"Computer thinking..."
-            title = largeFont.render(title, True, white)
-            titleRect = title.get_rect()
-            titleRect.center = ((width / 2), 30)
-            screen.blit(title, titleRect)
+                title = Title(f"Computer thinking...", posTit2, color_Computer)
 
             # Check for AI move
             if User != player and not game_over:
@@ -217,20 +224,15 @@ while True:
                 mouse = pygame.mouse.get_pos()
                 for i in range(3):
                     for j in range(3):
-                        if board[i][j] == Engine.EMPTY and tiles[i][j].collidepoint(mouse):
+                        if board[i][j] == Engine.EMPTY and titles[i][j].collidepoint(mouse):
                             board = Engine.result(board, (i, j))
 
             if game_over:
-                againButton = pygame.Rect(width / 3, height - 65, width / 3, 50)
-                again = midFont.render("Play Again", True, black)
-                againRect = again.get_rect()
-                againRect.center = againButton.center
-                pygame.draw.rect(screen, white, againButton)
-                screen.blit(again, againRect)
+                PlayAgainBtn = ButtonTit("Play Again", posBtn5)
                 click, _, _ = pygame.mouse.get_pressed()
                 if click == 1:
                     mouse = pygame.mouse.get_pos()
-                    if againButton.collidepoint(mouse):
+                    if PlayAgainBtn.btn.collidepoint(mouse):
                         time.sleep(0.2)
                         User = None
                         board = Engine.init_state()
