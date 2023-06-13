@@ -110,7 +110,6 @@ bcg = None
 User = None
 board = Engine.init_state()
 turn = False
-main_menu = False
 
 
 # Draw Screen
