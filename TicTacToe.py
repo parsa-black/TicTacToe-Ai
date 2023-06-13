@@ -16,15 +16,18 @@ black = (0, 0, 0)
 red = (255, 0, 0)
 green = (0, 255, 0)
 white = (255, 255, 255)
-gray = (128, 128, 128)
-gray_Screen = (128, 128, 128)
 cyan = (0, 225, 225)
 dark_Blue = (0, 0, 153)
-dark_Purple = (0, 0, 153)
+color_Screen = (128, 128, 128)
+color_Game = (0, 0, 0)
 
 # Create the screen
 screen = pygame.display.set_mode([width, height])
 
+# Title and Icon
+pygame.display.set_caption('Tic-Tac-Toe')
+icon = pygame.image.load('assets/icon/icon.png')
+pygame.display.set_icon(icon)
 
 # Font En-us
 midFont = pygame.font.Font('assets/font/RobotoMono-VariableFont_wght.ttf', 28)
@@ -44,7 +47,7 @@ posTit1 = [(width / 2), 50]
 # Title Class
 class Title:
     def __init__(self, text, pos):
-        self.text = largeFont.render(text, True, green)
+        self.text = largeFont.render(text, True, color_Game)
         self.title = self.text.get_rect()
         self.title.center = pos
         screen.blit(self.text, self.title)
@@ -80,23 +83,17 @@ class Button:
 class ButtonTit:
     def __init__(self, text, pos):
         self.btn = pygame.Rect(pos)
-        self.text = midFont.render(text, True, green)
+        self.text = midFont.render(text, True, color_Game)
         self.rect = self.text.get_rect()
         self.rect.center = self.btn.center
         self.draw()
 
     def draw(self):
-        pygame.draw.rect(screen, black, self.btn)
         screen.blit(self.text, self.btn)
 
     def Btn(self):
         return self.btn
 
-
-# Title and Icon
-pygame.display.set_caption('Tic-Tac-Toe')
-icon = pygame.image.load('assets/icon/icon.png')
-pygame.display.set_icon(icon)
 
 # Game Starter Parameter
 bcg = None
@@ -118,21 +115,23 @@ while True:
             sys.exit()
     # BackGround Color
 
-    screen.fill(gray_Screen)
+    screen.fill(color_Screen)
 
     if bcg is None:
         DarkBtn = Button('Dark Mode', posBtn1)
         LightBtn = Button('Light Mode', posBtn2)
+        color_Game = cyan
+        title_welcome = Title('Welcome', posTit1)
 
         if DarkBtn.check_click() == 1:
-            gray_Screen = black
+            color_Screen = black
+            color_Game = green
             time.sleep(0.2)
             bcg = True
 
         elif LightBtn.check_click() == 1:
-            gray_Screen = white
-            cyan = dark_Blue
-            green = dark_Purple
+            color_Screen = white
+            color_Game = dark_Blue
             time.sleep(0.2)
             bcg = True
 
