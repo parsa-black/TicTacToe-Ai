@@ -13,9 +13,9 @@ height = 400
 # Color
 # RGB - Red, Green, Blue
 black = (0, 0, 0)
+white = (255, 255, 255)
 red = (255, 0, 0)
 green = (0, 255, 0)
-white = (255, 255, 255)
 cyan = (0, 225, 225)
 dark_Blue = (0, 0, 153)
 dark_pink = (255, 0, 127)
@@ -50,7 +50,7 @@ posTit1 = [(width / 2), 50]
 posTit2 = [(width / 2), 30]
 posTit3 = [width / 2 - (1.5 * 80), height / 2 - (1.5 * 80)]
 
-# Draw Board
+# Board
 title_size = 80
 title_origin = posTit3
 
@@ -90,7 +90,7 @@ class Button:
             return 0
 
 
-class ButtonTit:
+class ButtonGame:
     def __init__(self, text, pos):
         self.btn = pygame.Rect(pos)
         self.text = midFont.render(text, True, color_Game)
@@ -157,8 +157,8 @@ while True:
             title = Title("Play Tic-Tac-Toe", posTit1, color_Game)
 
             # Draw buttons
-            PlayXBtn = ButtonTit("Play as X", posBtn3)
-            PlayOBtn = ButtonTit("Play as O", posBtn4)
+            PlayXBtn = ButtonGame("Play as X", posBtn3)
+            PlayOBtn = ButtonGame("Play as O", posBtn4)
 
             # Check if button is clicked
             click, _, _ = pygame.mouse.get_pressed()
@@ -228,7 +228,7 @@ while True:
                             board = Engine.result(board, (i, j))
 
             if game_over:
-                PlayAgainBtn = ButtonTit("Play Again", posBtn5)
+                PlayAgainBtn = ButtonGame("Play Again", posBtn5)
                 click, _, _ = pygame.mouse.get_pressed()
                 if click == 1:
                     mouse = pygame.mouse.get_pos()
