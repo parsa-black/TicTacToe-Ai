@@ -29,11 +29,22 @@ largeFont = pygame.font.Font('assets/font/RobotoMono-VariableFont_wght.ttf', 40)
 moveFont = pygame.font.Font('assets/font/RobotoMono-VariableFont_wght.ttf', 60)
 
 # Button pos
-pos1 = [25, 350, width / 4, 50]
-pos2 = [400, 350, width / 3.5, 50]
-pos3 = [(width / 8), (height / 2), width / 4, 50]
-pos4 = [5 * (width / 8), (height / 2), width / 4, 50]
-pos5 = [width / 3, height - 65, width / 3, 50]
+posBtn1 = [25, 350, width / 4, 50]
+posBtn2 = [400, 350, width / 3.5, 50]
+posBtn3 = [(width / 8), (height / 2), width / 4, 50]
+posBtn4 = [5 * (width / 8), (height / 2), width / 4, 50]
+posBtn5 = [width / 3, height - 65, width / 3, 50]
+# -------------------------------------------------------
+posTit1 = [(width / 2), 50]
+
+
+# Title Class
+class Title:
+    def __init__(self, text, pos):
+        self.text = largeFont.render(text, True, green)
+        self.title = self.text.get_rect()
+        self.title.center = pos
+        screen.blit(self.text, self.title)
 
 
 # Button Class
@@ -63,6 +74,11 @@ class Button:
             return 0
 
 
+# Draw Screen
+def draw_screen(color):
+    screen.fill(color)
+
+
 # Title and Icon
 pygame.display.set_caption('Tic-Tac-Toe')
 icon = pygame.image.load('assets/icon/icon.png')
@@ -73,6 +89,8 @@ bcg = None
 User = None
 board = Engine.init_state()
 turn = False
+main_menu = False
+
 
 # Game Loop
 while True:
@@ -82,29 +100,25 @@ while True:
 
     # BackGround Color
     if bcg is None:
-
-        DarkBtn = Button('Dark Mode', pos1)
-        LightBtn = Button('Light Mode', pos2)
+        DarkBtn = Button('Dark Mode', posBtn1)
+        LightBtn = Button('Light Mode', posBtn2)
 
         if DarkBtn.check_click() == 1:
             time.sleep(0.2)
-            screen.fill(black)
+            draw_screen(black)
         elif LightBtn.check_click() == 1:
             time.sleep(0.2)
-            screen.fill(white)
+            draw_screen(white)
 
     # Game Env
     if User is None:
 
         # Title
-        title = largeFont.render("Tic-Tac-Toe Game", True, cyan)
-        titleRect = title.get_rect()
-        titleRect.center = ((width / 2), 50)
-        screen.blit(title, titleRect)
+        title_start = Title('Tic-Tac-Toe Game', posTit1)
 
         # Game Btn
-        PlayXBtn = Button('Play as X', pos3)
-        PlayOBtn = Button('Play as O', pos4)
+        PlayXBtn = Button('Play as X', posBtn3)
+        PlayOBtn = Button('Play as O', posBtn4)
 
         # Check
         if PlayXBtn.check_click() == 1:
@@ -178,7 +192,7 @@ while True:
                         board = Engine.result(board, (i, j))
 
         if game_over:
-            AgainBtn = Button('Play Again', pos5)
+            AgainBtn = Button('Play Again', posBtn5)
             if AgainBtn.check_click() == 1:
                 time.sleep(0.2)
                 user = None
