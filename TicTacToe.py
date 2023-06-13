@@ -131,32 +131,32 @@ while True:
 
         elif LightBtn.check_click() == 1:
             gray_Screen = white
-            # cyan = dark_Blue
-            # green = dark_Purple
+            cyan = dark_Blue
+            green = dark_Purple
             time.sleep(0.2)
             bcg = True
 
     else:
         # Game Env
         if User is None:
-            #
-            # # Draw title
-            # title_start = Title("Play Tic-Tac-Toe", posTit1)
-            #
-            # # Draw buttons
-            # PlayXBtn = ButtonTit("Play as X", posBtn3)
-            # PlayOBtn = ButtonTit("Play as O", posBtn4)
-            #
-            # # Check if button is clicked
-            # click, _, _ = pygame.mouse.get_pressed()
-            # if click == 1:
-            #     mouse = pygame.mouse.get_pos()
-            #     if PlayXBtn.Btn().collidepoint(mouse):
-            #         time.sleep(0.2)
-            #         User = Engine.X
-            #     elif PlayOBtn.Btn().collidepoint(mouse):
-            #         time.sleep(0.2)
-            #         User = Engine.O
+
+            # Draw title
+            title_start = Title("Play Tic-Tac-Toe", posTit1)
+
+            # Draw buttons
+            PlayXBtn = ButtonTit("Play as X", posBtn3)
+            PlayOBtn = ButtonTit("Play as O", posBtn4)
+
+            # Check if button is clicked
+            click, _, _ = pygame.mouse.get_pressed()
+            if click == 1:
+                mouse = pygame.mouse.get_pos()
+                if PlayXBtn.Btn().collidepoint(mouse):
+                    time.sleep(0.2)
+                    User = Engine.X
+                elif PlayOBtn.Btn().collidepoint(mouse):
+                    time.sleep(0.2)
+                    User = Engine.O
 
         else:
 
