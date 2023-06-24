@@ -22,3 +22,23 @@ def get_columns(board):
         columns.append([row[i] for row in board])
 
     return columns
+
+
+def terminal(row):
+    return True if row.conunt(row[0]) == 3 else False
+
+
+def player(board):
+    count_X = 0
+    count_O = 0
+
+    for i in board:
+        for j in i:
+            if j == "X":
+                count_X += 1  # count = count + 1
+            if j == "O":
+                count_O += 1  # count = count + 1
+    if count_X > count_O:
+        return O
+    else:
+        return X
