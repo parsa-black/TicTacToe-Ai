@@ -26,7 +26,7 @@ def get_columns(board):
 
 # Win position
 def terminal_win(row):
-    return True if row.conunt(row[0]) == 3 else False
+    return True if row.count(row[0]) == 3 else False
 
 
 # return player who has the next turn
@@ -120,17 +120,29 @@ def max_pruning(board, alpha, beta):
 
 
 # Min alpha-beta Pruning
-def min_alpha_beta_pruning(board, alpha, beta):
+def min_pruning(board, alpha, beta):
     if terminal(board):
         return value(board), None
     worth = float("inf")
     best = None
     for action in actions(board):
-        max_val = max_pruning(result(board, action), alpha, beta)[0]
-        if max_val < worth:
+        max_worth = max_pruning(result(board, action), alpha, beta)[0]
+        if max_worth < worth:
             best = action
-            worth = max_val
+            worth = max_worth
         beta = min(beta, worth)
         if beta <= alpha:
             break
     return worth, best
+
+
+# MiniMax
+def minimax(board):
+    if terminal(board):
+        return None
+    if player(board) == X:
+        return max_pruning(board, float("-inf"), float("inf"))[1]
+    elif player(board) == O:
+        return min_pruning(board, float("-inf"), float("inf"))[1]
+    else:
+        raise Exception("Error")
