@@ -49,9 +49,6 @@ def player(board):
 
 # possible actions in the board
 def actions(board):
-    """
-    Returns set of all possible actions (i, j) available on the board.
-    """
     action = set()
     for i, row in enumerate(board):
         for j, worth in enumerate(row):
@@ -109,7 +106,7 @@ def max_pruning(board, alpha, beta):
     worth = float("-inf")
     best = None
     for action in actions(board):
-        min_worth = max_pruning(result(board, action), alpha, beta)[0]
+        min_worth = min_pruning(result(board, action), alpha, beta)[0]
         if min_worth > worth:
             best = action
             worth = min_worth
@@ -145,4 +142,4 @@ def minimax(board):
     elif player(board) == O:
         return min_pruning(board, float("-inf"), float("inf"))[1]
     else:
-        raise Exception("Error")
+        raise Exception("Error in Calculation Optimal Move")
