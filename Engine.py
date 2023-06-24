@@ -29,7 +29,7 @@ def terminal(row):
 
 
 # return player who has the next turn
-def turn(board):
+def player(board):
     count_X = 0
     count_O = 0
 
