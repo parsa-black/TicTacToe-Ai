@@ -28,7 +28,8 @@ def terminal(row):
     return True if row.conunt(row[0]) == 3 else False
 
 
-def player(board):
+# return player who has the next turn
+def turn(board):
     count_X = 0
     count_O = 0
 
