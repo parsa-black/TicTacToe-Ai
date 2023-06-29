@@ -1,2 +1,4 @@
 # TicTacToe-AI
-Tic Tac Toe Game With Minimax and Alpha&Beta Pruning Algorithm
+Tic Tac Toe Game
+Algorithm : Minimax and Alpha&Beta Pruning
+GUI : Pygame 
