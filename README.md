@@ -5,3 +5,6 @@ GUI : Pygame
 
 ## How to work
 [Minimax: How Computers Play Games](https://youtu.be/SLgZhpDsrfc)
+
+## Menu
+<img src="assets/image/Screenshot_14.png">
