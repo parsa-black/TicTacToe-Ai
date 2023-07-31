@@ -1,7 +1,7 @@
 # TicTacToe-AI
 
 Algorithm : [Minimax] and [Alpha&Beta Pruning]  
-GUI : Pygame
+GUI : Pygame  
 Run : Engine.py
 
 ## How to work
