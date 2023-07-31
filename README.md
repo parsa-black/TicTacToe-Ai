@@ -8,3 +8,6 @@ GUI : Pygame
 
 ## Menu
 <img src="assets/image/Screenshot_14.png">
+
+## Example
+<img src="assets/image/Screenshot_20.png">
