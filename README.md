@@ -1,4 +1,4 @@
-# TicTacToe-AI
+# TicTacToe-Alpha–beta pruning
 
 Algorithm : [Minimax] and [Alpha&Beta Pruning]  
 GUI : Pygame  
